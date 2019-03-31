@@ -1,8 +1,7 @@
 <h2>{{ title }}</h2>
-<ol>
-  <li *ngFor="let tool of tools">
+  <div *ngFor="let tool of tools">
     <button (click)="onClickMe(tool)">{{ tool.name }}</button>
-  </li>
-  {{ toolClicked }}
-</ol>
+  </div>
+  <div>Tool Selected: {{ toolClicked.name }}</div>
+  <a routerLink="/{{ toolClicked.path }}">Show</a>
 

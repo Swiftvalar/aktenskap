@@ -10,10 +10,10 @@ export class ToolsComponent implements OnInit {
 
   title = 'List of Tools';
   tools;
-  toolClicked = '';
+  toolClicked = 'None';
 
   onClickMe(tool:any) {
-    this.toolClicked = tool.address;
+    this.toolClicked = tool;
   }
   constructor(service: ToolsService) {
     this.tools = service.getTools();
