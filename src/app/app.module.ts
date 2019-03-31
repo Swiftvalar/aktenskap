@@ -4,17 +4,21 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { ToolsComponent } from './tools/tools.component';
 import { ToolsService } from './tools.service';
+import { TasklistComponent } from './tasklist/tasklist.component';
+import { TasklistService } from './tasklist.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ToolsComponent
+    ToolsComponent,
+    TasklistComponent
   ],
   imports: [
     BrowserModule
   ],
   providers: [
-    ToolsService
+    ToolsService,
+    TasklistService
   ],
   bootstrap: [AppComponent]
 })
