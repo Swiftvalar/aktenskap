@@ -8,7 +8,7 @@ import { ToolsService } from '../tools.service';
 })
 export class ToolsComponent implements OnInit {
 
-  title = 'List of Tools';
+  title = 'Tools';
   tools;
   toolClicked = 'None';
 
