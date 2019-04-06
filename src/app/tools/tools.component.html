@@ -1,0 +1,5 @@
+<h2>{{ title }}</h2>
+<div *ngFor="let tool of tools">
+  <button (click)="onClickMe(tool)"><a routerLink="/{{ tool.path }}">{{ tool.name }}</a></button>
+</div>
+
