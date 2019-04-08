@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as $ from 'jquery/dist/jquery.min.js';
 
 @Component({
   selector: 'app-tasklist',
@@ -7,10 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TasklistComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+  }
 
   ngOnInit() {
-
   }
 
 }
