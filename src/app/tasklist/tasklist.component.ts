@@ -9,7 +9,7 @@ import { generate } from 'rxjs';
 })
 export class TasklistComponent implements OnInit {
 
-  currentNumberOfCards:number = 2;
+  currentNumberOfCards:number = 0;
 
   constructor() { 
   }
@@ -17,7 +17,7 @@ export class TasklistComponent implements OnInit {
   ngOnInit() {
   }
 
-  generateCard(rowNumber:number, columnName:string, cardHeader:string, cardTextContent:string ) {
+  generateCard(rowNumber:number, columnName:string, cardHeaderText:string, cardTextContent:string ) {
     
     let row = document.createElement('div');
     row.id = "row_" + rowNumber;
@@ -43,8 +43,16 @@ export class TasklistComponent implements OnInit {
     card.id = "card_" + rowNumber;
     card.className = "card";
     
+    let cardHeaderClassName:string = "";
+    if(this.currentNumberOfCards % 2 == 0){
+      cardHeaderClassName = "card-header deep-orange white-text";
+    } else{
+      cardHeaderClassName = "card-header primary-color white-text";
+    }
+
+
     let h5 = document.createElement('h5');
-    h5.className = "card-header primary-color white-text";
+    h5.className = cardHeaderClassName;
     h5.textContent = "Card " + rowNumber;
 
     let cardBody = document.createElement('div');

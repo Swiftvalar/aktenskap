@@ -1,6 +1,6 @@
 <div class="container">
   <br />
-  <div class="row">
+  <div id="row_0" class="row">
     <div class="col">
       To Do
     </div>
@@ -15,47 +15,6 @@
     </div>
   </div>
   <br />
-  <div id="row_1" class="row justify-content-md-center">
-    <div id="todoColumn_1" class="col">
-      <div id="card_1" class="card">
-        <h5 class="card-header primary-color white-text">Card 1</h5>
-        <div id="cardBody_1" class="card-body">
-          <p class="card-text">I'm card 1</p>
-          <button (click)="moveLeft('card_1')">Move Left</button><button (click)="moveRight('card_1')">Move Right</button>
-        </div>
-      </div>
-    </div>
-    <div id="inprogressColumn_1" class="col">
-
-    </div>
-    <div id="reviewColumn_1" class="col">
-
-    </div>
-    <div id="completeColumn_1" class="col">
-
-    </div>
-  </div>
-  <br />
-  <div id="row_2" class="row justify-content-md-center">
-    <div id="todoColumn_2" class="col">
-      
-    </div>
-    <div id="inprogressColumn_2" class="col">
-        <div id="card_2" class="card">
-            <h5 class="card-header deep-orange white-text">Card 2</h5>
-            <div id="cardBody_2" class="card-body">
-              <p class="card-text">I'm card 2</p>
-              <button (click)="moveLeft('card_2')">Move Left</button><button (click)="moveRight('card_2')">Move Right</button>
-            </div>
-          </div>
-    </div>
-    <div id="reviewColumn_2" class="col">
-        
-    </div>
-    <div id="completeColumn_2" class="col">
-
-    </div>
-  </div>
 </div>
 <br />
 <button (click)="newCard()">New Card</button>
