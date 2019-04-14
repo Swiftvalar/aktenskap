@@ -64,12 +64,6 @@ export class TasklistComponent implements OnInit {
     let newCardId:string = card.id;
     rightButton.addEventListener("click", (e:Event) => this.moveRight(card.id));
 
-    cardBody.appendChild(cardText);
-    cardBody.appendChild(leftButton);
-    cardBody.appendChild(rightButton);
-    card.appendChild(h5);
-    card.appendChild(cardBody);
-
     switch(columnName) {
       case "todoColumn": {
         todoColumn.appendChild(card);
@@ -92,24 +86,17 @@ export class TasklistComponent implements OnInit {
       }
     }
 
+    cardBody.appendChild(cardText);
+    cardBody.appendChild(leftButton);
+    cardBody.appendChild(rightButton);
+    card.appendChild(h5);
+    card.appendChild(cardBody);
     row.appendChild(todoColumn);
     row.appendChild(inprogressColumn);
     row.appendChild(reviewColumn);
     row.appendChild(completeColumn);
 
     return row;
-    // $(row).insertAfter(lastRowElement);
-
-    // document.getElementById(row.id).appendChild(todoColumn);
-    // document.getElementById(todoColumn.id).appendChild(card);
-    // document.getElementById(card.id).appendChild(h5);
-    // document.getElementById(card.id).appendChild(cardBody);
-    // document.getElementById(cardBody.id).appendChild(cardText);
-    // document.getElementById(cardBody.id).appendChild(leftButton);
-    // document.getElementById(cardBody.id).appendChild(rightButton);
-    // document.getElementById(row.id).appendChild(inprogressColumn);
-    // document.getElementById(row.id).appendChild(reviewColumn);
-    // document.getElementById(row.id).appendChild(completeColumn);
   }
 
 
