@@ -8,7 +8,7 @@ import * as $ from 'jquery/dist/jquery.min.js';
 })
 export class TasklistComponent implements OnInit {
 
-  currentNumberOfRows:number = 2;
+  currentNumberOfCards:number = 2;
 
   constructor() { 
   }
@@ -17,57 +17,53 @@ export class TasklistComponent implements OnInit {
   }
 
   newCard() {
-    let lastRowElement = document.getElementById('row_' + this.currentNumberOfRows);
-    let newNumberOfRows:number = this.currentNumberOfRows + 1;
+    let lastRowElement = document.getElementById('row_' + this.currentNumberOfCards);
+    let newNumberOfCards:number = this.currentNumberOfCards + 1;
 
     let row = document.createElement('div');
-    row.id = "row_" + newNumberOfRows;
+    row.id = "row_" + newNumberOfCards;
     row.className = "row justify-content-md-center";
 
     let todoColumn = document.createElement('div');
-    todoColumn.id = "todoColumn_" + newNumberOfRows;
+    todoColumn.id = "todoColumn_" + newNumberOfCards;
     todoColumn.className = "col";
 
     let inprogressColumn = document.createElement('div');
-    inprogressColumn.id = "inprogressColumn_" + newNumberOfRows;
+    inprogressColumn.id = "inprogressColumn_" + newNumberOfCards;
     inprogressColumn.className = "col";
 
     let reviewColumn = document.createElement('div');
-    reviewColumn.id = "reviewColumn_" + newNumberOfRows;
+    reviewColumn.id = "reviewColumn_" + newNumberOfCards;
     reviewColumn.className = "col";
 
     let completeColumn = document.createElement('div');
-    completeColumn.id = "todoColumn_" + newNumberOfRows;
+    completeColumn.id = "completeColumn_" + newNumberOfCards;
     completeColumn.className = "col";
 
     let card = document.createElement('div');
-    card.id = "card_" + newNumberOfRows;
+    card.id = "card_" + newNumberOfCards;
     card.className = "card";
     
     let h5 = document.createElement('h5');
     h5.className = "card-header primary-color white-text";
-    h5.textContent = "Card " + newNumberOfRows;
+    h5.textContent = "Card " + newNumberOfCards;
 
     let cardBody = document.createElement('div');
-    cardBody.id = "cardBody_" + newNumberOfRows;
+    cardBody.id = "cardBody_" + newNumberOfCards;
     cardBody.className = "card-body";
 
     let cardText = document.createElement('div');
     cardText.className = "card-text";
-    cardText.textContent = "I'm card " + newNumberOfRows;
+    cardText.textContent = "I'm card " + newNumberOfCards;
 
     let leftButton = document.createElement('button');
     leftButton.textContent = "Move Left";
-    leftButton.addEventListener ("click", function() {
-        alert("did left something");
-    });
+    leftButton.addEventListener ("click", (e:Event) => this.moveLeft(card.id));
 
     let rightButton = document.createElement('button');
     rightButton.textContent = "Move Right";
     let newCardId:string = card.id;
-    rightButton.addEventListener ("click", function() {
-      alert("did right something");
-    });
+    rightButton.addEventListener("click", (e:Event) => this.moveRight(card.id));
 
     $(row).insertAfter(lastRowElement);
 
@@ -82,7 +78,7 @@ export class TasklistComponent implements OnInit {
     document.getElementById(row.id).appendChild(reviewColumn);
     document.getElementById(row.id).appendChild(completeColumn);
 
-    this.currentNumberOfRows = newNumberOfRows;
+    this.currentNumberOfCards = newNumberOfCards;
   }
 
   moveRight(cardId) {
