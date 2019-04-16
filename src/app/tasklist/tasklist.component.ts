@@ -229,13 +229,17 @@ export class TasklistComponent implements OnInit {
 
     for(let card of this.activeCards) {
       if(card.cardNumber == cardNumber) {
-        console.log("ActiveCardsBefore: " + this.activeCards.toString());
-        console.log("ArchivedCardsBefore: " + this.archivedCards.toString());
         this.archivedCards.push(card);
-        // this.activeCards.remove(card);
-        console.log("ActiveCardsAfter: " + this.activeCards.toString());
-        console.log("ArchivedCardsAfter: " + this.archivedCards.toString());
+        // this.activeCards.remove(card);  //This doesn't work
       }
+    }
+
+    for(let card of this.activeCards) {
+      console.log("Active Card Number: " + card.cardNumber); //Debug
+    }
+
+    for(let card of this.archivedCards) {
+      console.log("Archive Card Number: " + card.cardNumber); //Debug
     }
   }
 
