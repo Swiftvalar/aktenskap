@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TasklistService } from '../tasklist.service'
 import * as $ from 'jquery/dist/jquery.min.js';
 import { generate } from 'rxjs';
 
@@ -10,37 +11,50 @@ import { generate } from 'rxjs';
 export class TasklistComponent implements OnInit {
 
   currentNumberOfCards:number = 0;
+  activeCards;
+  archivedCards;
 
-  constructor() { 
+  constructor(service: TasklistService) { 
+    this.activeCards = service.getActiveCards();
   }
 
   ngOnInit() {
+    for (let card of this.activeCards) {
+      let lastRowElement = document.getElementById('row_' + this.currentNumberOfCards);
+      let newNumberOfCards:number = this.currentNumberOfCards + 1;
+      let row = this.generateCard(card.cardNumber, card.columnName, card.cardTextContent);
+      $(row).insertAfter(lastRowElement);
+      this.currentNumberOfCards = newNumberOfCards;
+    }
   }
 
-  generateCard(rowNumber:number, columnName:string, cardHeaderText:string, cardTextContent:string ) {
+  generateCard(cardNumber:number, columnName:string, cardTextContent:string ) {
     
+    //debug logging
+    console.log("cardNumber: " + cardNumber + " column: " + columnName + " card text: " + cardTextContent);
+
     let row = document.createElement('div');
-    row.id = "row_" + rowNumber;
+    row.id = "row_" + cardNumber;
     row.className = "row justify-content-md-center";
 
     let todoColumn = document.createElement('div');
-    todoColumn.id = "todoColumn_" + rowNumber;
+    todoColumn.id = "todoColumn_" + cardNumber;
     todoColumn.className = "col";
 
     let inprogressColumn = document.createElement('div');
-    inprogressColumn.id = "inprogressColumn_" + rowNumber;
+    inprogressColumn.id = "inprogressColumn_" + cardNumber;
     inprogressColumn.className = "col";
 
     let reviewColumn = document.createElement('div');
-    reviewColumn.id = "reviewColumn_" + rowNumber;
+    reviewColumn.id = "reviewColumn_" + cardNumber;
     reviewColumn.className = "col";
 
     let completeColumn = document.createElement('div');
-    completeColumn.id = "completeColumn_" + rowNumber;
+    completeColumn.id = "completeColumn_" + cardNumber;
     completeColumn.className = "col";
 
     let card = document.createElement('div');
-    card.id = "card_" + rowNumber;
+    card.id = "card_" + cardNumber;
     card.className = "card";
     
     let cardHeaderClassName:string = "";
@@ -53,10 +67,10 @@ export class TasklistComponent implements OnInit {
 
     let h5 = document.createElement('h5');
     h5.className = cardHeaderClassName;
-    h5.textContent = "Card " + rowNumber;
+    h5.textContent = "Card " + cardNumber;
 
     let cardBody = document.createElement('div');
-    cardBody.id = "cardBody_" + rowNumber;
+    cardBody.id = "cardBody_" + cardNumber;
     cardBody.className = "card-body";
 
     let cardText = document.createElement('div');
@@ -89,6 +103,8 @@ export class TasklistComponent implements OnInit {
         completeColumn.appendChild(card);
       }
       default: {
+        //debug logging
+        console.log("Col name: " + columnName);
         alert("Invalid: Missing columnName!")
         break;
       }
@@ -113,7 +129,7 @@ export class TasklistComponent implements OnInit {
     let newNumberOfCards:number = this.currentNumberOfCards + 1;
 
     let row = this.generateCard(newNumberOfCards, 'todoColumn', "New Card " + newNumberOfCards, "This is New Card "+ newNumberOfCards)
-
+    
     $(row).insertAfter(lastRowElement);
     this.currentNumberOfCards = newNumberOfCards;
   }
