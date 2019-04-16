@@ -16,6 +16,7 @@ export class TasklistComponent implements OnInit {
 
   constructor(service: TasklistService) { 
     this.activeCards = service.getActiveCards();
+    this.archivedCards = service.getArchivedCards();
   }
 
   ngOnInit() {
@@ -83,8 +84,11 @@ export class TasklistComponent implements OnInit {
 
     let rightButton = document.createElement('button');
     rightButton.textContent = "Move Right";
-    let newCardId:string = card.id;
     rightButton.addEventListener("click", (e:Event) => this.moveRight(card.id));
+
+    let archiveButton = document.createElement('button');
+    archiveButton.textContent = "Archive";
+    archiveButton.addEventListener("click", (e:Event) => this.archiveCard(card.id));
 
     switch(columnName) {
       case "todoColumn": {
@@ -104,7 +108,7 @@ export class TasklistComponent implements OnInit {
       }
       default: {
         //debug logging
-        console.log("Col name: " + columnName);
+        console.log("Invalid Col Card Number: " + cardNumber);
         alert("Invalid: Missing columnName!")
         break;
       }
@@ -112,6 +116,7 @@ export class TasklistComponent implements OnInit {
 
     cardBody.appendChild(cardText);
     cardBody.appendChild(leftButton);
+    cardBody.appendChild(archiveButton);
     cardBody.appendChild(rightButton);
     card.appendChild(h5);
     card.appendChild(cardBody);
@@ -205,6 +210,33 @@ export class TasklistComponent implements OnInit {
         document.getElementById(cardId)
       );
     }
-
+    
+    
   }
+
+  //Work in progress: Removes Card and its row.  Does not remove it from the active Array and place in the archive yet.
+  //May have to rework how cards are placed. Maybe redraw all of them?  Maybe make the card number less
+  //prominent. 
+  archiveCard(cardId) {
+    let currentRowId:string = document.getElementById(cardId).parentElement.parentElement.id;
+    document.getElementById(currentRowId).remove()
+
+    let cardIdArray:any = cardId.split("_");
+    let cardNumber = cardIdArray[1];
+
+    //find the card in the activeCards array, add it to the archiveCards array, then delete from the active array.
+    console.log("Card to archive: " + cardNumber);
+
+    for(let card of this.activeCards) {
+      if(card.cardNumber == cardNumber) {
+        console.log("ActiveCardsBefore: " + this.activeCards.toString());
+        console.log("ArchivedCardsBefore: " + this.archivedCards.toString());
+        this.archivedCards.push(card);
+        // this.activeCards.remove(card);
+        console.log("ActiveCardsAfter: " + this.activeCards.toString());
+        console.log("ArchivedCardsAfter: " + this.archivedCards.toString());
+      }
+    }
+  }
+
 }

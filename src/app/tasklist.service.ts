@@ -9,18 +9,18 @@ export class TasklistService {
 
   getActiveCards() {
     return [{cardNumber:"1", columnName:"todoColumn", cardTextContent:"Card 1 text"},
-    {cardNumber:"3", columnName:"completeColumn", cardTextContent:"Card 2 text"}]
+    {cardNumber:"3", columnName:"completeColumn", cardTextContent:"Card 3 text"}];
   }
 
   getArchivedCards() {
+    return [{cardNumber:"2", columnName:"completeColumn", cardTextContent:"Card 2 text"}];
+  }
+
+  archiveCard(cardNumber:string) {
 
   }
 
-  deleteCard(cardNumber:string) {
-
-  }
-
-  saveCards(cardsArray) {
+  saveCards(activeCards, archiveCards) {
 
   }
 }
