@@ -133,7 +133,11 @@ export class TasklistComponent implements OnInit {
 
   newCard(newCardText) {
    
-    let lastCardDisplayed:number = this.activeCards[this.activeCards.length-1].cardNumber;
+    let lastCardDisplayed:number = 0;
+    if(this.activeCards.length > 0) {
+      lastCardDisplayed = this.activeCards[this.activeCards.length-1].cardNumber
+    } 
+
     let newCardNumber:number = +lastCardDisplayed + 1; //there will be duplicate numbers in archives, but I can't think of a better solution at the moment
     let newCardObject = {cardNumber: newCardNumber, columnName:"todoColumn", cardTextContent:newCardText};
     this.activeCards.push(newCardObject);
