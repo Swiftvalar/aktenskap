@@ -32,7 +32,7 @@ export class TasklistComponent implements OnInit {
   generateCard(cardNumber:number, columnName:string, cardTextContent:string ) {
     
     //debug logging
-    console.log("cardNumber: " + cardNumber + " column: " + columnName + " card text: " + cardTextContent);
+    // console.log("cardNumber: " + cardNumber + " column: " + columnName + " card text: " + cardTextContent);
 
     let row = document.createElement('div');
     row.id = "row_" + cardNumber;
@@ -108,7 +108,7 @@ export class TasklistComponent implements OnInit {
       }
       default: {
         //debug logging
-        console.log("Invalid Col Card Number: " + cardNumber);
+        console.log("Card Number:" + cardNumber + "\nColumn:"+columnName+"\nCardText:"+cardTextContent);
         alert("Invalid: Missing columnName!")
         break;
       }
@@ -133,7 +133,7 @@ export class TasklistComponent implements OnInit {
     let lastRowElement = document.getElementById('row_' + this.currentNumberOfCards);
     let newNumberOfCards:number = this.currentNumberOfCards + 1;
 
-    let row = this.generateCard(newNumberOfCards, 'todoColumn', "New Card " + newNumberOfCards, "This is New Card "+ newNumberOfCards)
+    let row = this.generateCard(newNumberOfCards, 'todoColumn', "This is New Card "+ newNumberOfCards)
     
     $(row).insertAfter(lastRowElement);
     this.currentNumberOfCards = newNumberOfCards;
@@ -145,8 +145,6 @@ export class TasklistComponent implements OnInit {
     let columnArray:any = currentColId.split("_");
     let columnName:string = columnArray[0];
     let rowNumber:string = columnArray[1];
-    console.log("Column Name: " + columnName);
-    console.log("Row Number: " + rowNumber);
 
     let rightColumn:string = '';
     switch(columnName) {
@@ -182,8 +180,6 @@ export class TasklistComponent implements OnInit {
     let columnArray:any = currentColId.split("_");
     let columnName:string = columnArray[0];
     let rowNumber:string = columnArray[1];
-    console.log("Column Name: " + columnName);
-    console.log("Row Number: " + rowNumber);
 
     let leftColumn:string = '';
     switch(columnName) {
@@ -225,7 +221,7 @@ export class TasklistComponent implements OnInit {
     let cardNumber = cardIdArray[1];
 
     //find the card in the activeCards array, add it to the archiveCards array, then delete from the active array.
-    console.log("Card to archive: " + cardNumber);
+    // console.log("Card to archive: " + cardNumber);
 
     for(let card of this.activeCards) {
       if(card.cardNumber == cardNumber) {

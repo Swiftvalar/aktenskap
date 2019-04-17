@@ -9,7 +9,7 @@ export class TasklistService {
 
   getActiveCards() {
     return [{cardNumber:"1", columnName:"todoColumn", cardTextContent:"Card 1 text"},
-    {cardNumber:"3", columnName:"completeColumn", cardTextContent:"Card 3 text"}];
+    {cardNumber:"3", columnName:"reviewColumn", cardTextContent:"Card 3 text"}];
   }
 
   getArchivedCards() {
