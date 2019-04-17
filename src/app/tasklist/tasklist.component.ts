@@ -218,9 +218,7 @@ export class TasklistComponent implements OnInit {
     
   }
 
-  //Work in progress: Removes Card and its row.  Does not remove it from the active Array and place in the archive yet.
-  //May have to rework how cards are placed. Maybe redraw all of them?  Maybe make the card number less
-  //prominent. 
+  //Removes card from display and active card array, and places it in the array of archived cards.
   archiveCard(cardId) {
     let currentRowId:string = document.getElementById(cardId).parentElement.parentElement.id;
     document.getElementById(currentRowId).remove()
