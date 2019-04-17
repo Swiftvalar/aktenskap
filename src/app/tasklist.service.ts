@@ -14,15 +14,17 @@ export class TasklistService {
   }
 
   save(activeCards, archivedCards) {
-    console.log("Nope Nope Nope. But here is what you would have saved!");
-    console.log("Active Cards")
+    let alertStr = "Nope Nope Nope. But here is what you would have saved!"
+    alertStr = alertStr.concat("\nActive Cards");
     for(let card of activeCards) {
-      console.log("Number:" + card.cardNumber + "Col:" + card.columnName + "Text:" + card.cardTextContent)
+      alertStr = alertStr.concat("\nNumber:" + card.cardNumber + "Col:" + card.columnName + "Text:" + card.cardTextContent)
     }
 
-    console.log("Archived Cards")
+    alertStr = alertStr.concat("\nArchived Cards")
     for(let card of archivedCards) {
-      console.log("Number:" + card.cardNumber + "Col:" + card.columnName + "Text:" + card.cardTextContent)
+      alertStr = alertStr.concat("\nNumber:" + card.cardNumber + "Col:" + card.columnName + "Text:" + card.cardTextContent)
     }
+
+    alert(alertStr);
   }
 }
