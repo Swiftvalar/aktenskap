@@ -14,7 +14,7 @@ export class TasklistService {
   }
 
   getArchivedCards() {
-    return [{cardNumber:"2", columnName:"completeColumn", cardTextContent:"Card 2 text"}];
+    return [];
   }
 
   archiveCard(cardNumber:string) {

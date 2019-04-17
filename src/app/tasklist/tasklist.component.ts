@@ -10,7 +10,6 @@ import { generate } from 'rxjs';
 })
 export class TasklistComponent implements OnInit {
 
-  currentNumberOfCards:number = 0;
   activeCards;
   archivedCards;
 
@@ -22,11 +21,15 @@ export class TasklistComponent implements OnInit {
   ngOnInit() {
     for (let i=0; i<this.activeCards.length; i++) {
       let card = this.activeCards[i];
-      let lastRowElement = document.getElementById('row_' + this.currentNumberOfCards);
-      let newNumberOfCards:number = this.currentNumberOfCards + 1;
-      let row = this.generateCard(card.cardNumber, card.columnName, card.cardTextContent);
-      $(row).insertAfter(lastRowElement);
-      this.currentNumberOfCards = newNumberOfCards;
+      let newRow = this.generateCard(card.cardNumber, card.columnName, card.cardTextContent);
+
+      let lastCardDisplayed = 0;
+      if (i>0) {
+        lastCardDisplayed = this.activeCards[i-1].cardNumber;
+      }
+
+      let lastRowElement = document.getElementById('row_' + lastCardDisplayed);
+      $(newRow).insertAfter(lastRowElement);
     }
   }
 
@@ -60,7 +63,7 @@ export class TasklistComponent implements OnInit {
     card.className = "card";
     
     let cardHeaderClassName:string = "";
-    if(this.currentNumberOfCards % 2 == 0){
+    if(cardNumber % 2 == 0){
       cardHeaderClassName = "card-header deep-orange white-text";
     } else{
       cardHeaderClassName = "card-header primary-color white-text";
@@ -128,14 +131,16 @@ export class TasklistComponent implements OnInit {
   }
 
 
-  newCard() {
-    let lastRowElement = document.getElementById('row_' + this.currentNumberOfCards);
-    let newNumberOfCards:number = this.currentNumberOfCards + 1;
-
-    let row = this.generateCard(newNumberOfCards, 'todoColumn', "This is New Card "+ newNumberOfCards)
-    
+  newCard(newCardText) {
+   
+    let lastCardDisplayed:number = this.activeCards[this.activeCards.length-1].cardNumber;
+    let newCardNumber:number = +lastCardDisplayed + 1; //there will be duplicate numbers in archives, but I can't think of a better solution at the moment
+    let newCardObject = {cardNumber: newCardNumber, columnName:"todoColumn", cardTextContent:newCardText};
+    this.activeCards.push(newCardObject);
+    //Display
+    let lastRowElement = document.getElementById('row_' + lastCardDisplayed);
+    let row = this.generateCard(newCardObject.cardNumber, newCardObject.columnName, newCardObject.cardTextContent);
     $(row).insertAfter(lastRowElement);
-    this.currentNumberOfCards = newNumberOfCards;
   }
 
   moveRight(cardId) {
@@ -220,21 +225,13 @@ export class TasklistComponent implements OnInit {
     let cardNumber = cardIdArray[1];
 
     //find the card in the activeCards array, add it to the archiveCards array, then delete from the active array.
-    // console.log("Card to archive: " + cardNumber);
 
-    for(let card of this.activeCards) {
+    for(let i=0; i<this.activeCards.length; i++) {
+      let card = this.activeCards[i];
       if(card.cardNumber == cardNumber) {
         this.archivedCards.push(card);
-        // this.activeCards.remove(card);  //This doesn't work
+        this.activeCards.splice(i, 1);
       }
-    }
-
-    for(let card of this.activeCards) {
-      console.log("Active Card Number: " + card.cardNumber); //Debug
-    }
-
-    for(let card of this.archivedCards) {
-      console.log("Archive Card Number: " + card.cardNumber); //Debug
     }
   }
 
