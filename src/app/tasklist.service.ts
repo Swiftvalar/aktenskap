@@ -13,15 +13,16 @@ export class TasklistService {
     {cardNumber:"4", columnName:"completeColumn", cardTextContent:"Card 4 text"}];
   }
 
-  getArchivedCards() {
-    return [];
-  }
+  save(activeCards, archivedCards) {
+    console.log("Nope Nope Nope. But here is what you would have saved!");
+    console.log("Active Cards")
+    for(let card of activeCards) {
+      console.log("Number:" + card.cardNumber + "Col:" + card.columnName + "Text:" + card.cardTextContent)
+    }
 
-  archiveCard(cardNumber:string) {
-
-  }
-
-  saveCards(activeCards, archiveCards) {
-
+    console.log("Archived Cards")
+    for(let card of archivedCards) {
+      console.log("Number:" + card.cardNumber + "Col:" + card.columnName + "Text:" + card.cardTextContent)
+    }
   }
 }

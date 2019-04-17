@@ -12,10 +12,12 @@ export class TasklistComponent implements OnInit {
 
   activeCards;
   archivedCards;
+  tasklistService;
 
-  constructor(service: TasklistService) { 
+  constructor(service: TasklistService) {
     this.activeCards = service.getActiveCards();
-    this.archivedCards = service.getArchivedCards();
+    this.archivedCards = [];
+    this.tasklistService = service;
   }
 
   ngOnInit() {
@@ -31,6 +33,10 @@ export class TasklistComponent implements OnInit {
       let lastRowElement = document.getElementById('row_' + lastCardDisplayed);
       $(newRow).insertAfter(lastRowElement);
     }
+  }
+
+  save() {
+    this.tasklistService.save(this.activeCards, this.archivedCards);
   }
 
   generateCard(cardNumber:number, columnName:string, cardTextContent:string ) {
@@ -236,5 +242,4 @@ export class TasklistComponent implements OnInit {
       }
     }
   }
-
 }
