@@ -20,7 +20,8 @@ export class TasklistComponent implements OnInit {
   }
 
   ngOnInit() {
-    for (let card of this.activeCards) {
+    for (let i=0; i<this.activeCards.length; i++) {
+      let card = this.activeCards[i];
       let lastRowElement = document.getElementById('row_' + this.currentNumberOfCards);
       let newNumberOfCards:number = this.currentNumberOfCards + 1;
       let row = this.generateCard(card.cardNumber, card.columnName, card.cardTextContent);
@@ -92,25 +93,23 @@ export class TasklistComponent implements OnInit {
 
     switch(columnName) {
       case "todoColumn": {
+        console.log("Todo Card Number:" + cardNumber + "Column:"+columnName+"CardText:"+cardTextContent);
         todoColumn.appendChild(card);
         break;
       }
       case "inprogressColumn": {
+        console.log("Inprogress Card Number:" + cardNumber + "Column:"+columnName+"CardText:"+cardTextContent);
         inprogressColumn.appendChild(card);
         break;
       }
       case "reviewColumn": {
+        console.log("Review Card Number:" + cardNumber + "Column:"+columnName+"CardText:"+cardTextContent);
         reviewColumn.appendChild(card);
         break;
       }
       case "completeColumn": {
+        console.log("Complete Card Number:" + cardNumber + "Column:"+columnName+"CardText:"+cardTextContent);
         completeColumn.appendChild(card);
-      }
-      default: {
-        //debug logging
-        console.log("Card Number:" + cardNumber + "\nColumn:"+columnName+"\nCardText:"+cardTextContent);
-        alert("Invalid: Missing columnName!")
-        break;
       }
     }
 
