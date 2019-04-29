@@ -3,6 +3,7 @@ import { TasklistService } from '../tasklist.service'
 import * as $ from 'jquery/dist/jquery.min.js';
 import { generate } from 'rxjs';
 
+
 @Component({
   selector: 'app-tasklist',
   templateUrl: './tasklist.component.html',
@@ -33,6 +34,14 @@ export class TasklistComponent implements OnInit {
       let lastRowElement = document.getElementById('row_' + lastCardDisplayed);
       $(newRow).insertAfter(lastRowElement);
     }
+
+    document.getElementById("newCardDescriptionInput")
+      .addEventListener("keyup", function(event) {
+      event.preventDefault();
+      if (event.keyCode === 13) {
+        document.getElementById("createNewCardBtn").click();
+      }
+    });
   }
 
   save() {
@@ -137,8 +146,9 @@ export class TasklistComponent implements OnInit {
   }
 
 
-  newCard(newCardText) {
+  newCard() {
    
+    let newCardText:string = $('#newCardDescriptionInput').val();
     let lastCardDisplayed:number = 0;
     if(this.activeCards.length > 0) {
       lastCardDisplayed = this.activeCards[this.activeCards.length-1].cardNumber
@@ -151,6 +161,8 @@ export class TasklistComponent implements OnInit {
     let lastRowElement = document.getElementById('row_' + lastCardDisplayed);
     let row = this.generateCard(newCardObject.cardNumber, newCardObject.columnName, newCardObject.cardTextContent);
     $(row).insertAfter(lastRowElement);
+
+    alert("Card Number " + newCardNumber + " created!");
   }
 
   moveRight(cardId) {
