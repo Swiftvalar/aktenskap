@@ -24,7 +24,7 @@ export class TasklistComponent implements OnInit {
   ngOnInit() {
     for (let i=0; i<this.activeCards.length; i++) {
       let card = this.activeCards[i];
-      let newRow = this.generateCard(card.cardNumber, card.columnName, card.cardTextContent);
+      let newRow = this.generateCard(card.cardNumber, card.cardTitle, card.columnName, card.cardTextContent);
 
       let lastCardDisplayed = 0;
       if (i>0) {
@@ -40,7 +40,7 @@ export class TasklistComponent implements OnInit {
     this.tasklistService.save(this.activeCards, this.archivedCards);
   }
 
-  generateCard(cardNumber:number, columnName:string, cardTextContent:string ) {
+  generateCard(cardNumber:number, cardTitle:string, columnName:string, cardTextContent:string ) {
     
     //debug logging
     // console.log("cardNumber: " + cardNumber + " column: " + columnName + " card text: " + cardTextContent);
@@ -79,7 +79,7 @@ export class TasklistComponent implements OnInit {
 
     let h5 = document.createElement('h5');
     h5.className = cardHeaderClassName;
-    h5.textContent = "Card " + cardNumber;
+    h5.textContent = "Card " + cardNumber + ": " + cardTitle;
 
     let cardBody = document.createElement('div');
     cardBody.id = "cardBody_" + cardNumber;
@@ -139,7 +139,7 @@ export class TasklistComponent implements OnInit {
 
 
   newCard() {
-   
+    let newCardTitle:string = prompt("Please enter a title for the new card", "")
     let newCardText:string = prompt("Please enter a card description", "");
     if (newCardText != null && newCardText != "") {
       let lastCardDisplayed:number = 0;
@@ -148,11 +148,11 @@ export class TasklistComponent implements OnInit {
       } 
 
       let newCardNumber:number = +lastCardDisplayed + 1; //there will be duplicate numbers in archives, but I can't think of a better solution at the moment
-      let newCardObject = {cardNumber: newCardNumber, columnName:"todoColumn", cardTextContent:newCardText};
+      let newCardObject = {cardNumber: newCardNumber, newCardTitle, columnName:"todoColumn", cardTextContent:newCardText};
       this.activeCards.push(newCardObject);
       //Display
       let lastRowElement = document.getElementById('row_' + lastCardDisplayed);
-      let row = this.generateCard(newCardObject.cardNumber, newCardObject.columnName, newCardObject.cardTextContent);
+      let row = this.generateCard(newCardObject.cardNumber, newCardObject.newCardTitle, newCardObject.columnName, newCardObject.cardTextContent);
       $(row).insertAfter(lastRowElement);
       
       alert("Card number " + newCardNumber + " created!");
