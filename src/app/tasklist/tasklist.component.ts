@@ -34,14 +34,6 @@ export class TasklistComponent implements OnInit {
       let lastRowElement = document.getElementById('row_' + lastCardDisplayed);
       $(newRow).insertAfter(lastRowElement);
     }
-
-    document.getElementById("newCardDescriptionInput")
-      .addEventListener("keyup", function(event) {
-      event.preventDefault();
-      if (event.keyCode === 13) {
-        document.getElementById("createNewCardBtn").click();
-      }
-    });
   }
 
   save() {
@@ -133,8 +125,8 @@ export class TasklistComponent implements OnInit {
 
     cardBody.appendChild(cardText);
     cardBody.appendChild(leftButton);
-    cardBody.appendChild(archiveButton);
     cardBody.appendChild(rightButton);
+    cardBody.appendChild(archiveButton);
     card.appendChild(h5);
     card.appendChild(cardBody);
     row.appendChild(todoColumn);
@@ -148,21 +140,27 @@ export class TasklistComponent implements OnInit {
 
   newCard() {
    
-    let newCardText:string = $('#newCardDescriptionInput').val();
-    let lastCardDisplayed:number = 0;
-    if(this.activeCards.length > 0) {
-      lastCardDisplayed = this.activeCards[this.activeCards.length-1].cardNumber
-    } 
+    let newCardText:string = prompt("Please enter a card description", "");
+    if (newCardText != null && newCardText != "") {
+      let lastCardDisplayed:number = 0;
+      if(this.activeCards.length > 0) {
+        lastCardDisplayed = this.activeCards[this.activeCards.length-1].cardNumber
+      } 
 
-    let newCardNumber:number = +lastCardDisplayed + 1; //there will be duplicate numbers in archives, but I can't think of a better solution at the moment
-    let newCardObject = {cardNumber: newCardNumber, columnName:"todoColumn", cardTextContent:newCardText};
-    this.activeCards.push(newCardObject);
-    //Display
-    let lastRowElement = document.getElementById('row_' + lastCardDisplayed);
-    let row = this.generateCard(newCardObject.cardNumber, newCardObject.columnName, newCardObject.cardTextContent);
-    $(row).insertAfter(lastRowElement);
-
-    alert("Card Number " + newCardNumber + " created!");
+      let newCardNumber:number = +lastCardDisplayed + 1; //there will be duplicate numbers in archives, but I can't think of a better solution at the moment
+      let newCardObject = {cardNumber: newCardNumber, columnName:"todoColumn", cardTextContent:newCardText};
+      this.activeCards.push(newCardObject);
+      //Display
+      let lastRowElement = document.getElementById('row_' + lastCardDisplayed);
+      let row = this.generateCard(newCardObject.cardNumber, newCardObject.columnName, newCardObject.cardTextContent);
+      $(row).insertAfter(lastRowElement);
+      
+      alert("Card number " + newCardNumber + " created!");
+    } else if (newCardText == "") {
+      alert("No Description? No new card :)");
+    } else {
+      alert("Invalid Input");
+    }
   }
 
   moveRight(cardId) {
